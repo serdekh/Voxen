@@ -1,7 +1,7 @@
 #pragma once
 
-#include "window.c"
-#include "events.c"
+#include "window.h"
+#include "events.h"
 #include "OpenGL.h"
 
 #include <stdio.h>

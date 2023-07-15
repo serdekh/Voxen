@@ -1,10 +1,9 @@
-﻿using VoxenSharp;
+﻿using VoxenSharp.Window;
 
 class Program
 {
     static void Main(string[] args)
     {
-        VoxenSharpIncluderTest.PrintHello();
-        Console.WriteLine("Hi");
+        var window = new Window(1600, 900, "title");
     }
 }
