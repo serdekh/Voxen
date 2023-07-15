@@ -130,7 +130,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="events.c" />
     <ClCompile Include="Voxen.c" />
+    <ClCompile Include="window.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="events.h" />
+    <ClInclude Include="export.h" />
+    <ClInclude Include="OpenGL.h" />
+    <ClInclude Include="voxen.h" />
+    <ClInclude Include="window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

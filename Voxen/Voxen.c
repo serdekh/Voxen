@@ -1,47 +1,33 @@
-#define GLEW_STATIC
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
-#include <stdio.h>
-
-#define WINDOW_TITLE "Window"
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 720
+#include "voxen.h"
 
 int main(void)
 {
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-
-
-    GLFWwindow* window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE, 0, 0);
-
-    if (!window) {
-        fprintf(stderr, "Error: failed to create '%s' window\n", WINDOW_TITLE);
-        glfwTerminate();
+    if (window_initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) == 1) {
+        return 1;
+    }
+    if (events_initialize()) {
         return 1;
     }
 
-    glewExperimental = GL_TRUE;
-    glfwMakeContextCurrent(window);
+    glClearColor(0, 0, 0, 1);
 
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Error: failed to initialize libraries");
-        glfwTerminate();
-        return 1;
+    while (!window_should_close()) {
+        events_poll();
+
+        if (events_just_pressed(GLFW_KEY_ESCAPE)) {
+            window_set_should_be_closed(true);
+        }
+
+        if (events_mouse_just_clicked(GLFW_MOUSE_BUTTON_1)) {
+            glClearColor(1, 0, 0, 1);
+        }
+
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        window_swap_buffers();
     }
 
-    glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-        glfwSwapBuffers(window);
-    }
-
-    glfwTerminate();
+    window_terminate();
 
     return 0;
 }
