@@ -2,5 +2,5 @@
 
 public struct ConfigurationData
 {
-    public const string VoxenDllFilePath = "..\\..\\..\\..\\..\\x64\\Debug\\Voxen.dll";
+    public const string VoxenDllFilePath = "Voxen.dll";//"..\\..\\..\\..\\..\\x64\\Debug\\Voxen.dll";
 }
