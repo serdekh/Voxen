@@ -10,7 +10,6 @@ EXPORT_FUNCTION_ATTRIBUTE int window_initialize(int width, int height, const cha
     window = glfwCreateWindow(width, height, title, 0, 0);
 
     if (!window) {
-        fprintf(stderr, "Error: failed to create '%s' window\n", title);
         glfwTerminate();
         return 1;
     }

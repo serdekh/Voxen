@@ -5,35 +5,29 @@ class Program
 {
     static void Main(string[] args)
     {
-        if (Window.Initialize(1600, 900, "title") == 1)
-        {
-            Console.WriteLine("Failed to open the window");
-            return;
-        }  
+        using var events = new Events();
+        using var window = new Window(1600, 900, "title");
 
-        if (Events.Initialize() == 1)
+        if (window.FailedToInitialize || events.FailedToInitialize)
         {
-            Console.WriteLine("Failed to initialize libs");
             return;
         }
 
-        while (!Window.ShouldBeClosed())
+        while (window.ShouldNotBeClosed())
         {
-            Events.Poll();
+            events.Poll();
 
-            if (Events.JustPressed(256))
+            if (events.JustPressed(256))
             {
-                Window.SetShouldBeClosed(true);
+                window.SetShouldBeClosed(true);
             }
 
-            if (Events.MouseJustClicked(0))
+            if (events.MouseJustClicked(0))
             {
                 Console.WriteLine("Click!");
             }
 
-            Window.SwapBuffers();
+            window.SwapBuffers();
         }
-
-        Window.Terminate();
     }
 }

@@ -10,7 +10,7 @@
 
 int main(void)
 {
-    if (window_initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) == 1) {
+    /*if (window_initialize(WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_TITLE) == 1) {
         return 1;
     }
     if (events_initialize()) {
@@ -36,6 +36,7 @@ int main(void)
     }
 
     window_terminate();
+    events_finalize();*/
 
     return 0;
 }

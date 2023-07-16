@@ -21,12 +21,14 @@ static double y = 0;
 static bool cursor_started = false;
 static bool cursor_locked = false;
 
+void events_key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
+void events_mouse_callback(GLFWwindow* window, int button, int action, int mode);
+void events_cursor_position_callback(GLFWwindow * window, double xpos, double ypos);
+
 EXPORT_FUNCTION_ATTRIBUTE int events_initialize();
+EXPORT_FUNCTION_ATTRIBUTE void events_finalize();
 
 EXPORT_FUNCTION_ATTRIBUTE void events_poll();
-EXPORT_FUNCTION_ATTRIBUTE void events_key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-EXPORT_FUNCTION_ATTRIBUTE void events_mouse_callback(GLFWwindow* window, int button, int action, int mode);
-EXPORT_FUNCTION_ATTRIBUTE void events_cursor_position_callback(GLFWwindow * window, double xpos, double ypos);
 
 EXPORT_FUNCTION_ATTRIBUTE bool events_pressed(int key);
 EXPORT_FUNCTION_ATTRIBUTE bool events_just_pressed(int key);

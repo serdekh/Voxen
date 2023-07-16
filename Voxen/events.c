@@ -1,6 +1,6 @@
 #include "events.h"
 
-EXPORT_FUNCTION_ATTRIBUTE void events_cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
+void events_cursor_position_callback(GLFWwindow* window, double xpos, double ypos) {
 	if (cursor_locked) {
 		dx += xpos - x;
 		dy += ypos - y;
@@ -13,7 +13,7 @@ EXPORT_FUNCTION_ATTRIBUTE void events_cursor_position_callback(GLFWwindow* windo
 	y = ypos;
 }
 
-EXPORT_FUNCTION_ATTRIBUTE void events_mouse_callback(GLFWwindow* window, int button, int action, int mode) {
+void events_mouse_callback(GLFWwindow* window, int button, int action, int mode) {
 	if (action == GLFW_PRESS) {
 		keys[MOUSE_BUTTONS + button] = true;
 		frames[MOUSE_BUTTONS + button] = current_frame;
@@ -24,7 +24,7 @@ EXPORT_FUNCTION_ATTRIBUTE void events_mouse_callback(GLFWwindow* window, int but
 	}
 }
 
-EXPORT_FUNCTION_ATTRIBUTE void events_key_callback(GLFWwindow *window, int key, int scancode, int action, int mode) {
+void events_key_callback(GLFWwindow *window, int key, int scancode, int action, int mode) {
 	if (action == GLFW_PRESS) {
 		keys[key] = true;
 		frames[key] = current_frame;
@@ -61,7 +61,7 @@ EXPORT_FUNCTION_ATTRIBUTE int events_initialize() {
 	return 0;
 }
 
-EXPORT_FUNCTION_ATTRIBUTE void events_poll() {
+void events_poll() {
 	current_frame++;
 
 	dx = 0.0f;
@@ -70,7 +70,7 @@ EXPORT_FUNCTION_ATTRIBUTE void events_poll() {
 	glfwPollEvents();
 }
 
-EXPORT_FUNCTION_ATTRIBUTE bool events_pressed(int key) {
+bool events_pressed(int key) {
 	if (key < 0 || key >= MOUSE_BUTTONS) {
 		return false;
 	}
@@ -78,7 +78,7 @@ EXPORT_FUNCTION_ATTRIBUTE bool events_pressed(int key) {
 	return keys[key];
 }
 
-EXPORT_FUNCTION_ATTRIBUTE bool events_just_pressed(int key) {
+bool events_just_pressed(int key) {
 	if (key < 0 || key >= MOUSE_BUTTONS) {
 		return false;
 	}
@@ -86,11 +86,21 @@ EXPORT_FUNCTION_ATTRIBUTE bool events_just_pressed(int key) {
 	return keys[key] && frames[key] == current_frame;
 }
 
-EXPORT_FUNCTION_ATTRIBUTE bool events_mouse_clicked(int button) {
+bool events_mouse_clicked(int button) {
 	return keys[button + MOUSE_BUTTONS];
 }
 
-EXPORT_FUNCTION_ATTRIBUTE bool events_mouse_just_clicked(int button) {
+bool events_mouse_just_clicked(int button) {
 	int index = button + MOUSE_BUTTONS;
 	return keys[index] && frames[index] == current_frame;
+}
+
+void events_finalize() {
+	if (keys) {
+		free(keys);
+	}
+
+	if (frames) {
+		free(frames);
+	}
 }
